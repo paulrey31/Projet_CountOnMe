@@ -2,12 +2,12 @@
 //  SimpleCalcTests.swift
 //  SimpleCalcTests
 //
-//  Created by Vincent Saluzzo on 29/03/2019.
+//  Created by Vincent Saluzzo on 29/03/201.9
 //  Copyright © 2019 Vincent Saluzzo. All rights reserved.
 //
 
 import XCTest
-@testable import SimpleCalc
+@testable import CountOnMe
 
 class SimpleCalcTests: XCTestCase {
 

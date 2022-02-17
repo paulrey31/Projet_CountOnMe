@@ -22,14 +22,13 @@ class ViewController: UIViewController {
         bindAlert()
     }
     
-    // MARK: popup
+    // MARK: alert controller
     private func presentUIAlertController(message: String) {
         let alertVc = UIAlertController(title: "Zero!", message: message, preferredStyle: .alert)
         alertVc.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         self.present(alertVc, animated: true, completion: nil)
     }
     
-    // MARK: func
     private func bindAlert() {
         calculation.displayAlert = presentUIAlertController(message: )
     }
@@ -38,14 +37,14 @@ class ViewController: UIViewController {
     // View actions
     @IBAction func tappedNumberButton(_ sender: UIButton) {
         if let numberText = sender.title(for: .normal) {
-            calculation.addNumberAndComma(number: numberText)
+            calculation.addNumber(number: numberText)
         }
         textView.text = calculation.calculText
     }
     
     @IBAction func tappedCommaButton(_ sender: UIButton) {
-        if let numberText = sender.title(for: .normal) {
-            calculation.addNumberAndComma(number: numberText)
+        if let commaText = sender.title(for: .normal) {
+            calculation.addComma(comma: commaText)
         }
         textView.text = calculation.calculText
     }

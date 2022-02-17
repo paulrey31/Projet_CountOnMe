@@ -6,6 +6,10 @@
 //  Copyright © 2021 Vincent Saluzzo. All rights reserved.
 //
 
+// TODO: rendre impossible de mettre un operateur sans chiffre avant
+// TODO: clear le calcul text apres une division par zero
+// Add Comment
+
 import Foundation
 
 extension Float {
@@ -35,20 +39,37 @@ class Calculation {
     
     var canAddOperator: Bool {
         return elements.last != "+" && elements.last != "-" && elements.last != "x" && elements.last != "/"
-        
     }
     
     var expressionHaveResult: Bool {
         return calculText.firstIndex(of: "=") != nil
     }
+    
+    var canAddComma: Bool {
+        return elements.count >= 1 && canAddOperator
+    }
 
     // MARK: NUMBER & COMMA
-    func addNumberAndComma(number: String) {
+    func addNumber(number: String) {
         if expressionHaveResult {
             calculText = ""
         }
         calculText.append(number)
     }
+    
+    func addComma(comma: String) {
+        if canAddComma {
+            if expressionHaveResult {
+                calculText = ""
+            } else {
+                calculText.append(comma)
+            }
+            
+        } else {
+            displayAlert?("Ajouter un nombre avant la virgule !")
+        }
+    }
+    
     // MARK: OPERATOR
     func addOperator(_operator: String){
         if canAddOperator {
@@ -95,6 +116,7 @@ class Calculation {
             let right = Float(operationsToReduce[2])!
             
             let result: String
+            
             switch operand {
             case "+": result = Float(left + right).cleanValue
             case "-": result = Float(left - right).cleanValue

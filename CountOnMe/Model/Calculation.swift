@@ -6,12 +6,9 @@
 //  Copyright © 2021 Vincent Saluzzo. All rights reserved.
 //
 
-// TODO: rendre impossible de mettre un operateur sans chiffre avant
-// TODO: clear le calcul text apres une division par zero
-// Add Comment
-
 import Foundation
 
+// extension that allows the deletion of a zero after the comma
 extension Float {
     var cleanValue: String {
         return self.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", self) : String(self)
@@ -97,7 +94,7 @@ class Calculation {
     }
     
     // MARK: DIVISION BY ZERO
-    func divideZero(left: Int, right: Int,_operator: String){
+    func divisionByZero(left: Int, right: Int,_operator: String){
         if _operator == "/" && right == 0 {
             displayAlert?("Démarrer un nouveau calcul !")
         }
@@ -107,7 +104,7 @@ class Calculation {
     
     func calculatedResult() {
         // Create local copy of operations
-        var operationsToReduce = calculatedResultMultiDivide(expression: elements)
+        var operationsToReduce = calculatedResultByMultiplicationOrDivision(expression: elements)
         
         // Iterate over operations while an operand still here
         while operationsToReduce.count > 1 {
@@ -134,7 +131,7 @@ class Calculation {
     
     // MARK: DIVISION & MULTIPLICATION
     
-    func calculatedResultMultiDivide (expression: [String]) -> [String] {
+    func calculatedResultByMultiplicationOrDivision (expression: [String]) -> [String] {
         var operationToReduce = expression
         while operationToReduce.firstIndex(of: "x") != nil || operationToReduce.firstIndex(of: "/") != nil {
             let operandIndex = operationToReduce.firstIndex(of: "x") ?? operationToReduce.firstIndex(of: "/")!
@@ -147,7 +144,7 @@ class Calculation {
             if operand == "x"{
                 result = Float(leftSide*rightSide).cleanValue
             } else {
-                divideZero(left: Int(leftSide), right: Int(rightSide), _operator: "/")
+                divisionByZero(left: Int(leftSide), right: Int(rightSide), _operator: "/")
                 result = Float(leftSide/rightSide).cleanValue
                 
             }

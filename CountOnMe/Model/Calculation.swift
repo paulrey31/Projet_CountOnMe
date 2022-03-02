@@ -108,9 +108,9 @@ class Calculation {
         
         // Iterate over operations while an operand still here
         while operationsToReduce.count > 1 {
-            let left = Float(operationsToReduce[0])!
+            guard let left = Float(operationsToReduce[0]) else {return}
             let operand = operationsToReduce[1]
-            let right = Float(operationsToReduce[2])!
+            guard let right = Float(operationsToReduce[2]) else {return}
             
             let result: String
             
@@ -136,8 +136,8 @@ class Calculation {
         while operationToReduce.firstIndex(of: "x") != nil || operationToReduce.firstIndex(of: "/") != nil {
             let operandIndex = operationToReduce.firstIndex(of: "x") ?? operationToReduce.firstIndex(of: "/")!
             
-            let leftSide = Float(operationToReduce[operandIndex-1])!
-            let rightSide = Float(operationToReduce[operandIndex+1])!
+            guard let leftSide = Float(operationToReduce[operandIndex-1]) else {return [""]}
+            guard let rightSide = Float(operationToReduce[operandIndex+1]) else {return [""]}
             let operand = operationToReduce[operandIndex]
             
             let result: String
@@ -146,7 +146,6 @@ class Calculation {
             } else {
                 divisionByZero(left: Int(leftSide), right: Int(rightSide), _operator: "/")
                 result = Float(leftSide/rightSide).cleanValue
-                
             }
             
             operationToReduce[operandIndex] = result
